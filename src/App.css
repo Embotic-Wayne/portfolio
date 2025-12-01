@@ -1,4 +1,4 @@
-/* Make the whole page use a clean font and dark bg */
+/* Basic reset */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -16,96 +16,298 @@ body {
     sans-serif;
   background: #020617;
   color: #e5e7eb;
-  overflow: hidden; /* avoid scrollbars if particles canvas is full screen */
+  overflow: hidden; /* avoid scrollbars from full-screen particles */
 }
 
-/* Particles canvas container (from index.html) */
+/* Particles canvas container (from public/index.html) */
 #particles-js {
   position: fixed;
-  inset: 0; /* top:0 right:0 bottom:0 left:0 */
+  inset: 0;
   z-index: 0;
   background: radial-gradient(circle at top, #020617, #000000);
 }
 
-/* Our React app wrapper */
+/* React app wrapper (sits above particles) */
 .app {
   position: relative;
-  z-index: 1; /* above particles */
+  z-index: 1;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Center content box */
+/* Main card */
 .content {
-  text-align: center;
-  padding: 2rem 3rem;
-  border-radius: 1rem;
-  background: rgba(15, 23, 42, 0.75); /* translucent */
+  padding: 2rem 2.5rem;
+  border-radius: 1.25rem;
+  background: rgba(15, 23, 42, 0.85);
   border: 1px solid rgba(148, 163, 184, 0.4);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(14px);
+  max-width: 1000px;
+  width: 95%;
 }
 
-/* Name */
-.name {
-  font-size: 2rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+/* Two-column layout inside the card */
+.content-inner {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr;
+  gap: 2rem;
+}
+
+/* LEFT COLUMN */
+.left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-height: 60vh; /* control height of scroll */
+  overflow-y: auto; /* scroll when content is tall */
+  padding-right: 0.5rem; /* space so scrollbar isn't tight */
+}
+
+/* Scrollbar style (optional) */
+.left-column::-webkit-scrollbar {
+  width: 6px;
+}
+.left-column::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.8);
+}
+.left-column::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.7);
+  border-radius: 999px;
+}
+
+/* Sections on the left */
+.section h2 {
+  font-size: 1.2rem;
   margin-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(55, 65, 81, 0.8);
+  padding-bottom: 0.3rem;
 }
 
-/* Role (SWE) */
-.role {
-  font-size: 1.1rem;
-  color: #9ca3af;
-  margin-bottom: 1.5rem;
-  letter-spacing: 0.25em;
+.section p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #d1d5db;
+}
+
+/* Skills list */
+.skills-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.skills-list li {
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  font-size: 0.8rem;
   text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Projects */
+.projects-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.project-card {
+  display: block;
+  padding: 0.8rem 0.9rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(55, 65, 81, 0.9);
+  background: rgba(15, 23, 42, 0.9);
+  text-decoration: none;
+  transition: border 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.project-card h3 {
+  font-size: 0.98rem;
+  margin-bottom: 0.25rem;
+  color: #e5e7eb;
+}
+
+.project-card p {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin-bottom: 0.3rem;
+}
+
+.project-link {
+  font-size: 0.8rem;
+  color: #60a5fa;
+}
+
+.project-card:hover {
+  border-color: #60a5fa;
+  background: rgba(15, 23, 42, 1);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* RIGHT COLUMN */
+.right-column {
+  display: flex;
+  justify-content: flex-right; /* push content to the right */
+  align-items: flex-start; /* keep it at the top */
+}
+
+.top-right {
+  text-align: center;
+}
+
+/* Name + role */
+.name {
+  font-size: 2.4rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.role {
+  font-size: 0.95rem;
+  color: #9ca3af;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
 }
 
 /* Buttons row */
 .buttons-row {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  flex-wrap: wrap;
 }
 
 /* Buttons */
 .btn {
   text-decoration: none;
-  padding: 0.6rem 1.2rem;
+  padding: 0.5rem 1.1rem;
   border-radius: 999px;
   border: 1px solid #4b5563;
   color: #e5e7eb;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .btn:hover {
-  background: rgba(31, 41, 55, 0.9);
+  background: rgba(31, 41, 55, 0.95);
+  border-color: #60a5fa;
   transform: translateY(-1px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
 }
 
-/* Small screens */
-@media (max-width: 480px) {
-  .content {
-    padding: 1.5rem 1.75rem;
+/* Responsive layout */
+@media (max-width: 768px) {
+  .content-inner {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
-  .name {
-    font-size: 2.2rem;
+  .right-column {
+    justify-content: flex-start;
+  }
+
+  .top-right {
+    text-align: left;
   }
 
   .buttons-row {
-    flex-direction: column;
+    justify-content: flex-start;
   }
 
-  .btn {
-    width: 100%;
-    text-align: center;
+  .left-column {
+    max-height: 40vh;
   }
+
+  .name {
+    font-size: 1.8rem;
+  }
+}
+
+.banana-area {
+  position: relative;
+  margin-top: 1.5rem;
+  height: 600px;
+  width: 100%;
+  overflow: hidden;
+  /* optional: remove these once you're happy */
+  /* background: rgba(220, 38, 38, 0.2);
+  border: 1px dashed #fca5a5; */
+}
+
+.banana {
+  position: absolute;
+  top: -40px; /* start above the box */
+  font-size: 1.8rem;
+  animation: banana-fall 4s linear infinite;
+  opacity: 0;
+}
+
+/* Now we animate "top" so they pass all the way through the box */
+@keyframes banana-fall {
+  0% {
+    top: -40px; /* just above the visible area */
+    opacity: 0;
+  }
+  15% {
+    opacity: 1; /* fade in quickly */
+  }
+  100% {
+    top: 480px; /* well below the 180px-tall box */
+    opacity: 0;
+  }
+}
+
+/* positions + delays */
+.banana-0 {
+  left: 5%;
+  animation-delay: 0s;
+}
+.banana-1 {
+  left: 20%;
+  animation-delay: 0.5s;
+}
+.banana-2 {
+  left: 35%;
+  animation-delay: 1s;
+}
+.banana-3 {
+  left: 50%;
+  animation-delay: 1.5s;
+}
+.banana-4 {
+  left: 65%;
+  animation-delay: 2s;
+}
+.banana-5 {
+  left: 80%;
+  animation-delay: 2.5s;
+}
+.banana-6 {
+  left: 15%;
+  animation-delay: 3s;
+}
+.banana-7 {
+  left: 45%;
+  animation-delay: 3.5s;
+}
+.banana-8 {
+  left: 70%;
+  animation-delay: 4s;
+}
+.banana-9 {
+  left: 90%;
+  animation-delay: 4.5s;
 }
