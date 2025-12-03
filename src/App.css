@@ -16,7 +16,9 @@ body {
     sans-serif;
   background: #020617;
   color: #e5e7eb;
-  overflow: hidden; /* avoid scrollbars from full-screen particles */
+  /* allow vertical scrolling on smaller screens */
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* Particles canvas container (from public/index.html) */
@@ -31,10 +33,11 @@ body {
 .app {
   position: relative;
   z-index: 1;
-  height: 100vh;
+  min-height: 100vh; /* use min-height so it can grow on mobile */
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1.5rem 0; /* some breathing room top/bottom */
 }
 
 /* Main card */
@@ -155,12 +158,13 @@ body {
 /* RIGHT COLUMN */
 .right-column {
   display: flex;
-  justify-content: flex-right; /* push content to the right */
-  align-items: flex-start; /* keep it at the top */
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end; /* push content to the right */
 }
 
 .top-right {
-  text-align: center;
+  text-align: right;
 }
 
 /* Name + role */
@@ -208,69 +212,40 @@ body {
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
 }
 
-/* Responsive layout */
-@media (max-width: 768px) {
-  .content-inner {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .right-column {
-    justify-content: flex-start;
-  }
-
-  .top-right {
-    text-align: left;
-  }
-
-  .buttons-row {
-    justify-content: flex-start;
-  }
-
-  .left-column {
-    max-height: 40vh;
-  }
-
-  .name {
-    font-size: 1.8rem;
-  }
-}
-
+/* 🍌 Banana rain area under the name/buttons */
 .banana-area {
   position: relative;
-  margin-top: 1.5rem;
-  height: 600px;
+  margin-top: 1rem;
+  height: 550px; /* can be taller on desktop */
   width: 100%;
   overflow: hidden;
-  /* optional: remove these once you're happy */
-  /* background: rgba(220, 38, 38, 0.2);
-  border: 1px dashed #fca5a5; */
 }
 
+/* Base banana style */
 .banana {
   position: absolute;
-  top: -40px; /* start above the box */
+  top: -40px; /* start above the visible box */
   font-size: 1.8rem;
-  animation: banana-fall 4s linear infinite;
+  animation: banana-fall 6s linear infinite;
   opacity: 0;
 }
 
-/* Now we animate "top" so they pass all the way through the box */
+/* Keyframes for falling animation (longer path) */
 @keyframes banana-fall {
   0% {
-    top: -40px; /* just above the visible area */
+    top: -40px;
     opacity: 0;
   }
   15% {
-    opacity: 1; /* fade in quickly */
+    opacity: 1;
   }
   100% {
-    top: 480px; /* well below the 180px-tall box */
+    top: 480px; /* long fall */
     opacity: 0;
   }
 }
 
-/* positions + delays */
+/* Different positions & delays for each banana */
 .banana-0 {
   left: 5%;
   animation-delay: 0s;
@@ -310,4 +285,98 @@ body {
 .banana-9 {
   left: 90%;
   animation-delay: 4.5s;
+}
+
+/* ---------- RESPONSIVE BREAKPOINTS ---------- */
+
+/* Medium screens (tablets / small laptops) */
+@media (max-width: 1024px) {
+  .content {
+    padding: 1.75rem 1.75rem;
+    width: 96%;
+  }
+
+  .content-inner {
+    gap: 1.5rem;
+  }
+
+  .name {
+    font-size: 2.1rem;
+  }
+}
+
+/* Small screens (phones) */
+@media (max-width: 768px) {
+  .app {
+    align-items: flex-start; /* start at top on tall phones */
+  }
+
+  .content {
+    padding: 1.5rem 1.25rem;
+    border-radius: 1rem;
+    width: 94%;
+  }
+
+  .content-inner {
+    grid-template-columns: 1fr; /* stack columns */
+    gap: 1.25rem;
+  }
+
+  /* Show header (right column) first on mobile */
+  .right-column {
+    align-items: flex-start;
+    order: -1;
+    width: 100%;
+  }
+
+  .top-right {
+    text-align: left;
+  }
+
+  .buttons-row {
+    justify-content: flex-start;
+  }
+
+  .left-column {
+    max-height: none; /* allow full scroll */
+    padding-right: 0;
+  }
+
+  .name {
+    font-size: 1.9rem;
+  }
+
+  .role {
+    font-size: 0.85rem;
+    letter-spacing: 0.16em;
+  }
+
+  .banana-area {
+    height: 220px;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .content {
+    padding: 1.25rem 1rem;
+  }
+
+  .name {
+    font-size: 1.7rem;
+    letter-spacing: 0.08em;
+  }
+
+  .role {
+    font-size: 0.8rem;
+  }
+
+  .btn {
+    font-size: 0.75rem;
+    padding: 0.45rem 0.9rem;
+  }
+
+  .banana-area {
+    height: 200px;
+  }
 }
