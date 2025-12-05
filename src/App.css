@@ -216,7 +216,7 @@ body {
 .banana-area {
   position: relative;
   margin-top: 1rem;
-  height: 550px; /* can be taller on desktop */
+  height: 350px; /* can be taller on desktop */
   width: 100%;
   overflow: hidden;
 }
