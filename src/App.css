@@ -43,41 +43,35 @@ body {
 /* Main card */
 .content {
   padding: 2rem 2.5rem;
-  border-radius: 1.25rem;
   background: rgba(15, 23, 42, 0.85);
-  border: 1px solid rgba(148, 163, 184, 0.4);
+  border: 1px solid rgba(81, 99, 124, 0.4);
   backdrop-filter: blur(14px);
   max-width: 1000px;
   width: 95%;
 }
 
-/* Two-column layout inside the card */
+/* Single-column layout inside the card */
 .content-inner {
-  display: grid;
-  grid-template-columns: 2fr 1.2fr;
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
 }
 
-/* LEFT COLUMN */
-.left-column {
+/* HEADER SECTION: Name, Role, and Social Links */
+.header-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(55, 65, 81, 0.8);
+}
+
+/* CONTENT SECTIONS CONTAINER */
+.sections-container {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  max-height: 60vh; /* control height of scroll */
-  overflow-y: auto; /* scroll when content is tall */
-  padding-right: 0.5rem; /* space so scrollbar isn't tight */
-}
-
-/* Scrollbar style (optional) */
-.left-column::-webkit-scrollbar {
-  width: 6px;
-}
-.left-column::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.8);
-}
-.left-column::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.7);
-  border-radius: 999px;
 }
 
 /* Sections on the left */
@@ -108,7 +102,6 @@ body {
   border-radius: 999px;
   border: 1px solid rgba(148, 163, 184, 0.6);
   font-size: 0.8rem;
-  text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
@@ -123,7 +116,7 @@ body {
 .project-card {
   display: block;
   padding: 0.8rem 0.9rem;
-  border-radius: 0.75rem;
+
   border: 1px solid rgba(55, 65, 81, 0.9);
   background: rgba(15, 23, 42, 0.9);
   text-decoration: none;
@@ -155,23 +148,10 @@ body {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* RIGHT COLUMN */
-.right-column {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-end; /* push content to the right */
-}
-
-.top-right {
-  text-align: right;
-}
-
 /* Name + role */
 .name {
   font-size: 2.4rem;
   letter-spacing: 0.12em;
-  text-transform: uppercase;
   margin-bottom: 0.4rem;
 }
 
@@ -179,7 +159,7 @@ body {
   font-size: 0.95rem;
   color: #9ca3af;
   margin-bottom: 1rem;
-  text-transform: uppercase;
+
   letter-spacing: 0.2em;
 }
 
@@ -187,7 +167,7 @@ body {
 .buttons-row {
   display: flex;
   gap: 0.5rem;
-  justify-content: flex-end;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
@@ -199,7 +179,6 @@ body {
   border: 1px solid #4b5563;
   color: #e5e7eb;
   font-size: 0.8rem;
-  text-transform: uppercase;
   letter-spacing: 0.12em;
   transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease,
     border-color 0.2s ease;
@@ -211,82 +190,6 @@ body {
   transform: translateY(-1px);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
 }
-
-/* 🍌 Banana rain area under the name/buttons */
-.banana-area {
-  position: relative;
-  margin-top: 1rem;
-  height: 350px; /* can be taller on desktop */
-  width: 100%;
-  overflow: hidden;
-}
-
-/* Base banana style */
-.banana {
-  position: absolute;
-  top: -40px; /* start above the visible box */
-  font-size: 1.8rem;
-  animation: banana-fall 6s linear infinite;
-  opacity: 0;
-}
-
-/* Keyframes for falling animation (longer path) */
-@keyframes banana-fall {
-  0% {
-    top: -40px;
-    opacity: 0;
-  }
-  15% {
-    opacity: 1;
-  }
-  100% {
-    top: 480px; /* long fall */
-    opacity: 0;
-  }
-}
-
-/* Different positions & delays for each banana */
-.banana-0 {
-  left: 5%;
-  animation-delay: 0s;
-}
-.banana-1 {
-  left: 20%;
-  animation-delay: 0.5s;
-}
-.banana-2 {
-  left: 35%;
-  animation-delay: 1s;
-}
-.banana-3 {
-  left: 50%;
-  animation-delay: 1.5s;
-}
-.banana-4 {
-  left: 65%;
-  animation-delay: 2s;
-}
-.banana-5 {
-  left: 80%;
-  animation-delay: 2.5s;
-}
-.banana-6 {
-  left: 15%;
-  animation-delay: 3s;
-}
-.banana-7 {
-  left: 45%;
-  animation-delay: 3.5s;
-}
-.banana-8 {
-  left: 70%;
-  animation-delay: 4s;
-}
-.banana-9 {
-  left: 90%;
-  animation-delay: 4.5s;
-}
-
 /* ---------- RESPONSIVE BREAKPOINTS ---------- */
 
 /* Medium screens (tablets / small laptops) */
@@ -318,28 +221,15 @@ body {
   }
 
   .content-inner {
-    grid-template-columns: 1fr; /* stack columns */
     gap: 1.25rem;
   }
 
-  /* Show header (right column) first on mobile */
-  .right-column {
-    align-items: flex-start;
-    order: -1;
-    width: 100%;
-  }
-
-  .top-right {
-    text-align: left;
+  .header-section {
+    padding-bottom: 1rem;
   }
 
   .buttons-row {
-    justify-content: flex-start;
-  }
-
-  .left-column {
-    max-height: none; /* allow full scroll */
-    padding-right: 0;
+    justify-content: center;
   }
 
   .name {
@@ -349,10 +239,6 @@ body {
   .role {
     font-size: 0.85rem;
     letter-spacing: 0.16em;
-  }
-
-  .banana-area {
-    height: 220px;
   }
 }
 
@@ -374,9 +260,5 @@ body {
   .btn {
     font-size: 0.75rem;
     padding: 0.45rem 0.9rem;
-  }
-
-  .banana-area {
-    height: 200px;
   }
 }

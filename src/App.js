@@ -69,20 +69,57 @@ function App() {
     <div className="app">
       <div className="content">
         <div className="content-inner">
-          {/* LEFT COLUMN: About, Skills, Projects (scrollable) */}
-          <div className="left-column">
+          {/* HEADER: Name, Role, and Social Links */}
+          <div className="header-section">
+            <h1 className="name">hi i'm wayne</h1>
+            <p className="role">SWE @ SJSU</p>
+            <div className="buttons-row">
+              <a
+                href="https://linkedin.com/in/wayne-ngo"
+                target="_blank"
+                rel="noreferrer"
+                className="btn"
+              >
+                LinkedIn
+              </a>
+              <a
+                href="https://github.com/Embotic-Wayne"
+                target="_blank"
+                rel="noreferrer"
+                className="btn"
+              >
+                GitHub
+              </a>
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noreferrer"
+                className="btn"
+              >
+                Resume
+              </a>
+            </div>
+          </div>
+
+          {/* CONTENT SECTIONS: About, Skills, Projects */}
+          <div className="sections-container">
             <section className="section">
-              <h2>About Me</h2>
+              <h2>about me</h2>
               <p>
-                Hello, I’m an aspiring software engineer at San Jose State
-                University, expected to graduate by May 2027. I&apos;m focused
-                on enhancing my expertise, expanding my skill set, and
-                connecting with professionals in the tech community.
+                Hi! I’m a software engineering student at San Jose State
+                University, graduating in May 2027. I enjoy building useful,
+                real world projects and have experience creating tools that help
+                students and organizations work more smoothly. I’m always
+                looking to learn more, take on new challenges, and connect with
+                people in the tech community. Whether it’s developing features
+                that support hundreds of users or improving how a system works
+                behind the scenes, I love turning ideas into something others
+                can actually use.
               </p>
             </section>
 
             <section className="section">
-              <h2>Skills</h2>
+              <h2>skills</h2>
               <ul className="skills-list">
                 {skills.map((skill) => (
                   <li key={skill}>{skill}</li>
@@ -91,7 +128,7 @@ function App() {
             </section>
 
             <section className="section">
-              <h2>Projects</h2>
+              <h2>projects</h2>
               <div className="projects-scroll">
                 {projects.map((project) => (
                   <a
@@ -108,49 +145,6 @@ function App() {
                 ))}
               </div>
             </section>
-          </div>
-
-          {/* RIGHT COLUMN: top-right name + links + bananas */}
-          <div className="right-column">
-            <div className="top-right">
-              <h1 className="name">Wayne Ngo</h1>
-              <p className="role">SWE @ SJSU</p>
-
-              <div className="buttons-row">
-                <a
-                  href="https://linkedin.com/in/wayne-ngo"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn"
-                >
-                  LinkedIn
-                </a>
-                <a
-                  href="https://github.com/Embotic-Wayne"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn"
-                >
-                  GitHub
-                </a>
-                <a
-                  href="/resume.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn"
-                >
-                  Resume
-                </a>
-              </div>
-              {/* 🍌 Banana rain area under name/buttons */}
-              <div className="banana-area">
-                {Array.from({ length: 10 }).map((_, i) => (
-                  <div key={i} className={`banana banana-${i}`}>
-                    🍌
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </div>
